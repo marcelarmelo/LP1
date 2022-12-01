@@ -1,7 +1,6 @@
 # LP1
 Atividades da disciplina Linguagem de programação 1 - Java
 
-**Classe Carro**
 
 **Requisitos funcionais:**
 
@@ -14,13 +13,12 @@ Atividades da disciplina Linguagem de programação 1 - Java
     boolean velocidade.
 
 - [x] O usuário pode cadastrar um novo carro;
-- [x] abrir o dicionário de dados;
-- [x] sair da aplicação.
+- [x] O usuário pode abrir o dicionário de dados;
+- [x] O usuário pode sair da aplicação.
 
 
 
 **Requisitos não funcionais:**
 
-- [x] O sistema deverá ser desenvolvido em linguagem Java.
-
+- [x] O sistema deverá ser desenvolvido em linguagem Java;
 - [x] A interface deve ser simples e intuitiva.
