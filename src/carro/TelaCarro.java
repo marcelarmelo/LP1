@@ -22,11 +22,15 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.awt.event.ActionEvent;
+import carro.Conexao;
 
 public class TelaCarro extends JFrame {
 
@@ -113,32 +117,30 @@ public class TelaCarro extends JFrame {
 	            c1.setMarca(tfMarca.getText());
 	            c1.setCor(tfCor.getText());
 	            c1.setRoda(tfRoda.getText());
-	            x.add(c1);
-	            
-	            for(Carro item: x) {
-	            	System.out.println("Lista");
-	    			System.out.printf("%s\n", item.toString());
-	    		}
-	       
-	            try{
-	            		
-	               FileWriter fw = new FileWriter("C:\\Users\\Marcela\\Desktop\\LP1-main\\E2\\nomes.csv", true);
-	               BufferedWriter bw = new BufferedWriter(fw);
-	               PrintWriter out = new PrintWriter(bw);
-				   StringBuilder sb = new StringBuilder();
-				   
-				   sb.append(tfModelo.getText() + ";");
-				   sb.append(tfAcessorio.getText() + ";");
-				   sb.append(tfMarca.getText() + ";");
-				   sb.append(tfCor.getText() + ";");
-				   sb.append(tfRoda.getText() + ";");
-				   bw.write(sb.toString() + "\n");
-				   bw.close();
-	            
-	        } catch (Exception e1){
-	            System.out.println("Erro !");
-	        }
-	           
+
+				try {
+					Connection con = Conexao.faz_conexao();
+					String sql = "insert into especificacoes(marca, modelo, cor, roda, acessorio) values (?, ?, ?, ?, ?)";
+					
+					PreparedStatement stmt = con.prepareStatement(sql);
+					
+					stmt.setString(1, c1.getMarca());
+					stmt.setString(2, c1.getModelo());
+					stmt.setString(3, c1.getCor());
+					stmt.setString(4, c1.getRoda());
+					stmt.setString(5, c1.getAcessorio());
+					
+				stmt.execute();
+				stmt.close();
+				con.close();
+				JOptionPane.showMessageDialog(null, "Cadastrado com sucesso!");
+
+			}catch (SQLException e1) {
+				e1.printStackTrace();
+				JOptionPane.showMessageDialog(null, "Faltando informações obrigatórias!");
+					
+				}
+				
 			}
 		});
 		Cadastrar1.setText("Cadastrar");
